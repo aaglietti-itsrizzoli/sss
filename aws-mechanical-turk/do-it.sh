@@ -42,3 +42,16 @@ read FFMPEG_FRAMES_COUNT
 
 # ffmpeg -ss 00:00:08 -i tmp -frames:v 4 output-%04d.png
 ffmpeg -ss $FFMPEG_SEEK -i $YOUTUBE_VIDEO_FILEPATH -frames:v $FFMPEG_FRAMES_COUNT ${ME_DIR}/frames/${YOUTUBE_VIDEO_FILENAME}-%04d.png
+
+PICS_FRAMES_FOLDER=${ME_DIR}/../pics/frames/${VIDEO_DIGEST_LEFT}
+echo "### PICS_FRAMES_FOLDER: ${PICS_FRAMES_FOLDER}"
+
+mkdir -p ${PICS_FRAMES_FOLDER}
+
+echo "#### sposta manualmente tutti i frame che ti interessano nella PICS_FRAMES_FOLDER, poi premi invio"
+read CONFIRM
+
+PWD_BEFORE=$(pwd)
+cd ${PICS_FRAMES_FOLDER}
+for file in ${FOOTBALL_PLAYER_NAME}-*; do mv "$file" "${file#${FOOTBALL_PLAYER_NAME}-}";done;
+cd $PWD_BEFORE
