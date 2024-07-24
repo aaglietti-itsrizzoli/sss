@@ -36,7 +36,15 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
-	"postCreateCommand": ".devcontainer/post-create-command.sh"
+	"postCreateCommand": ".devcontainer/post-create-command.sh",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg"
+			]
+		}
+	}
 
 	// Configure tool-specific properties.
 	// "customizations": {},
