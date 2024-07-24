@@ -12,6 +12,8 @@ echo "#### post-create-command.sh: $(date) - me is $(me)"
 
 sed -i "s#POSTGRES_URL#${POSTGRES_URL}#g" .vscode/settings.json
 
+pip install yt-dlp
+
 npm install
 
 echo "#### post-create-command.sh: $(date) - end"
