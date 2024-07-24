@@ -1,4 +1,7 @@
-export default function Profile() {
+import { sql } from "@vercel/postgres";
+
+export default async function Profile(): Promise<JSX.Element> {
+  const { rows } = await sql`SELECT * from profiles LIMIT 1`;
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -6,7 +9,7 @@ export default function Profile() {
           Profile page
         </p>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <p>Il tuo uuid è d6eb621f-6dd0-4cdc-93f5-07f51b249b51</p>
+          <p>Il tuo uuid è {rows[0].id}</p>
         </div>
       </div>
     </main>
