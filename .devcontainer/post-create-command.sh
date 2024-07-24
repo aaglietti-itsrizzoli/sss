@@ -20,4 +20,6 @@ sudo apt-get update
 
 sudo apt-get install -y ffmpeg
 
+sudo apt-get install -y git-lfs
+
 echo "#### post-create-command.sh: $(date) - end"
