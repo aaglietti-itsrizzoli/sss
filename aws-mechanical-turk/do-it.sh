@@ -55,3 +55,18 @@ PWD_BEFORE=$(pwd)
 cd ${PICS_FRAMES_FOLDER}
 for file in ${FOOTBALL_PLAYER_NAME}-*; do mv "$file" "${file#${FOOTBALL_PLAYER_NAME}-}";done;
 cd $PWD_BEFORE
+
+git add pics/frames/${VIDEO_DIGEST_LEFT}/*
+
+echo "#### controlla dal pannello git che i frame in stage siano quelli che ti interessano, poi premi invio"
+read CONFIRM
+
+FRAMES_JSON_FILE=pics/frames/${VIDEO_DIGEST_LEFT}.json
+ls -l pics/frames/${VIDEO_DIGEST_LEFT}/*.png | \
+    awk '{print $9}' | \
+    jq -R -s -c 'split("\n") | map(select(length>0)) | {frames: .}' | \
+    jq > ${FRAMES_JSON_FILE}
+
+git add ${FRAMES_JSON_FILE}
+
+git commit -m "chore(frames): ${VIDEO_DIGEST_LEFT}"
