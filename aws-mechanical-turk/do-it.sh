@@ -32,3 +32,12 @@ if [ ! -f ${YOUTUBE_VIDEO_FILEPATH} ]; then
     echo "File ${YOUTUBE_VIDEO_FILEPATH} NOT found, donwload it!"
     yt-dlp --format=mp4 --output=$YOUTUBE_VIDEO_FILEPATH $YOUTUBE_VIDEO_URL
 fi
+
+echo "#### Insert HH:MM:SS"
+read FFMPEG_SEEK
+
+echo "#### How many frames?"
+read FFMPEG_FRAMES_COUNT
+
+# ffmpeg -ss 00:00:08 -i tmp -frames:v 4 output-%04d.png
+ffmpeg -ss $FFMPEG_SEEK -i $YOUTUBE_VIDEO_FILEPATH -frames:v $FFMPEG_FRAMES_COUNT ${ME_DIR}/frames/${YOUTUBE_VIDEO_FILENAME}-%04d.png
