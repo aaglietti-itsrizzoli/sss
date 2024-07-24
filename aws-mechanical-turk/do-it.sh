@@ -23,9 +23,12 @@ echo "#### Insert the YouTube video URL"
 read YOUTUBE_VIDEO_URL
 
 echo "#### YOUTUBE_VIDEO_URL: ${YOUTUBE_VIDEO_URL}"
-YOUTUBE_VIDEO_FILENAME=tmp
+VIDEO_DIGEST=$(printf $YOUTUBE_VIDEO_URL | sha256sum)
+YOUTUBE_VIDEO_FILENAME=${FOOTBALL_PLAYER_NAME}-${VIDEO_DIGEST:0:6}.mp4
+YOUTUBE_VIDEO_FILEPATH=${ME_DIR}/videos/${YOUTUBE_VIDEO_FILENAME}
 
-# yt-dlp --format=mp4 --output=$YOUTUBE_VIDEO_FILENAME https://www.youtube.com/watch?v=2ZEA7O3qdnE
-yt-dlp --format=mp4 --output=$YOUTUBE_VIDEO_FILENAME $YOUTUBE_VIDEO_URL
-
-rm $YOUTUBE_VIDEO_FILENAME
+# yt-dlp --format=mp4 --output=tmp https://www.youtube.com/watch?v=2ZEA7O3qdnE
+if [ ! -f ${YOUTUBE_VIDEO_FILEPATH} ]; then
+    echo "File ${YOUTUBE_VIDEO_FILEPATH} NOT found, donwload it!"
+    yt-dlp --format=mp4 --output=$YOUTUBE_VIDEO_FILEPATH $YOUTUBE_VIDEO_URL
+fi
