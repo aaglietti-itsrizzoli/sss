@@ -42,7 +42,8 @@
 			"extensions": [
 				"mtxr.sqltools",
 				"mtxr.sqltools-driver-pg",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"github.vscode-github-actions"
 			]
 		}
 	}
