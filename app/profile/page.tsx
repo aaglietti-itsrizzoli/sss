@@ -1,7 +1,20 @@
 import { sql } from "@vercel/postgres";
+import { cookies } from "next/headers";
 
 export default async function Profile(): Promise<JSX.Element> {
-  const { rows } = await sql`SELECT * from profiles LIMIT 1`;
+  const cookieStore = cookies()
+  const hasCookie = cookieStore.has('uuid')
+  let isValidUidCookie = false;
+  let uuid = "";
+
+  if (hasCookie) {
+    uuid = cookieStore.get('uuid')?.value || ""
+    const { rows } = await sql`SELECT * from profiles WHERE id = ${uuid} LIMIT 1`
+    if (rows.length) {
+      isValidUidCookie = true
+    }
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -9,7 +22,10 @@ export default async function Profile(): Promise<JSX.Element> {
           Profile page
         </p>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <p>Il tuo uuid è {rows[0].id}</p>
+          {hasCookie ? (<p>Il tuo uuid è {uuid}</p>) : <p>Non hai uno uuid</p>}
+        </div>
+        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
+          {isValidUidCookie ? (<p>Il tuo uuid è valido</p>) : (<p>Il tuo uuid NON è valido</p>)}
         </div>
       </div>
     </main>
