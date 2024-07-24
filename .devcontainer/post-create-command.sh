@@ -16,4 +16,8 @@ pip install yt-dlp
 
 npm install
 
+sudo apt-get update
+
+sudo apt-get install -y ffmpeg
+
 echo "#### post-create-command.sh: $(date) - end"
