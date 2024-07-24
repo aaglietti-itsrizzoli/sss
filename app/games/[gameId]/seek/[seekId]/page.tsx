@@ -1,16 +1,33 @@
-export default async function SeekById({ params }: { params: { seekId: string } }): Promise<JSX.Element> {
+"use client"
+import { useEffect, useState } from "react"
+import Image from 'next/image'
+
+export default function SeekById({ params }: { params: { seekId: string } }): JSX.Element {
+  const [data, setData] = useState([""])
+  const [isLoading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch(`/pics/frames/${params.seekId}.json`)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.frames)
+        setLoading(false)
+      })
+  }, [params.seekId])
+
+  if (isLoading) return <p>Loading...</p>
+  if (!data) return <p>No profile data</p>
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Seek {params.seekId}!
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-        </div>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-        </div>
-      </div>
-    </main>
-  );
+    <div>
+      {data.map(frame => (
+        <Image
+          src={`/${frame}`}
+          key={frame}
+          width={500}
+          height={500}
+          alt="Picture of the author"
+        />))}
+    </div>
+  )
 }
