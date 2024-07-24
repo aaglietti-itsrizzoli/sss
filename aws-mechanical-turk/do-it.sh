@@ -11,8 +11,9 @@ echo "#### ffmpeg version END"
 echo "yt-dlp --version: $(yt-dlp --version)"
 
 ME=$(basename "$0")
+ME_DIR=$(dirname "$0")
 
-echo "#### do-it.sh: $(date) - me is ${ME}"
+echo "#### do-it.sh: $(date) - me is ${ME} in ${ME_DIR}"
 
 echo "#### Insert the football player name"
 read FOOTBALL_PLAYER_NAME
