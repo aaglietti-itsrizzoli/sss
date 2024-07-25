@@ -6,12 +6,14 @@ export default async function Profile(): Promise<JSX.Element> {
   const hasCookie = cookieStore.has('uuid')
   let isValidUidCookie = false;
   let uuid = "";
+  let uuidCreatedAt = "";
 
   if (hasCookie) {
     uuid = cookieStore.get('uuid')?.value || ""
     const { rows } = await sql`SELECT * from profiles WHERE id = ${uuid} LIMIT 1`
     if (rows.length) {
       isValidUidCookie = true
+      uuidCreatedAt = rows[0].created_at.toString()
     }
   }
 
@@ -25,7 +27,7 @@ export default async function Profile(): Promise<JSX.Element> {
           {hasCookie ? (<p>Il tuo uuid è {uuid}</p>) : <p>Non hai uno uuid</p>}
         </div>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          {isValidUidCookie ? (<p>Il tuo uuid è valido</p>) : (<p>Il tuo uuid NON è valido</p>)}
+          {isValidUidCookie ? (<p>Il tuo uuid è valido a partire da {uuidCreatedAt}</p>) : (<p>Il tuo uuid NON è valido</p>)}
         </div>
       </div>
     </main>
