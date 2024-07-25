@@ -48,7 +48,8 @@ echo "### PICS_FRAMES_FOLDER: ${PICS_FRAMES_FOLDER}"
 
 mkdir -p ${PICS_FRAMES_FOLDER}
 
-echo "#### sposta manualmente tutti i frame che ti interessano nella PICS_FRAMES_FOLDER, poi premi invio"
+echo "#### manually select frames from ${ME_DIR}/frames/ moving them to ${PICS_FRAMES_FOLDER}"
+echo "#### then press enter"
 read CONFIRM
 
 PWD_BEFORE=$(pwd)
@@ -58,7 +59,8 @@ cd $PWD_BEFORE
 
 git add public/pics/frames/${VIDEO_DIGEST_LEFT}/*
 
-echo "#### controlla dal pannello git che i frame in stage siano quelli che ti interessano, poi premi invio"
+echo "#### verify that staged frames on Git are the ones you want, eventually unstage some of them"
+echo "#### then press enter"
 read CONFIRM
 
 FRAMES_JSON_FILE=pics/frames/${VIDEO_DIGEST_LEFT}.json
@@ -73,3 +75,5 @@ cd $PWD_BEFORE
 git add ${FRAMES_JSON_FILE}
 
 git commit -m "chore(frames): ${VIDEO_DIGEST_LEFT}"
+
+echo "#### everything fine, frame index JSON file is ${FRAMES_JSON_FILE}"
