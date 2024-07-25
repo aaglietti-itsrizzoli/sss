@@ -17,15 +17,15 @@ function Frame({ framePath, frameIndex, zIndex }: { framePath: string, frameInde
           backgroundColor: 'black'
         }}
       >frameIndex {frameIndex}, zIndex {zIndex}</p>
-    <Image
-      src={framePath}
-      width={500}
-      height={500}
-      alt="Picture of the author"
-      onClick={() => {
+      <Image
+        src={framePath}
+        width={500}
+        height={500}
+        alt="Picture of the author"
+        onClick={() => {
           setDisplay('none')
-      }}
-    />
+        }}
+      />
     </div>
   )
 }
