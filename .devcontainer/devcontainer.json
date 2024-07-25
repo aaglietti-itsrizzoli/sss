@@ -10,7 +10,10 @@
 		"ghcr.io/devcontainers-contrib/features/vercel-pkg:1": {},
 		"ghcr.io/devcontainers-contrib/features/vercel-release:1": {},
 		"ghcr.io/devcontainers-contrib/features/vercel-serve:1": {},
-		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "20.15.1",
+			"nvmVersion": "0.39.7"
+		},
 		"ghcr.io/devcontainers/features/python:1": {
 			// https://github.com/devcontainers/features/tree/main/src/python
 			"installTools": true,
