@@ -3,19 +3,30 @@ import { useEffect, useState } from "react"
 import Image from 'next/image'
 
 function Frame({ framePath, frameIndex, zIndex }: { framePath: string, frameIndex: number, zIndex: number }): JSX.Element {
+  const [display, setDisplay] = useState('block')
   return (
+    <div
+      style={{
+        position: 'absolute',
+        zIndex: zIndex,
+        display: display
+      }}
+    >
+      <p
+        style={{
+          backgroundColor: 'black'
+        }}
+      >frameIndex {frameIndex}, zIndex {zIndex}</p>
     <Image
       src={framePath}
       width={500}
       height={500}
       alt="Picture of the author"
       onClick={() => {
-      }}
-      style={{
-        position: 'absolute',
-        zIndex: zIndex
+          setDisplay('none')
       }}
     />
+    </div>
   )
 }
 
